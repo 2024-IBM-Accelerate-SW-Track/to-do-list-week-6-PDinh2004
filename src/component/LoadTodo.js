@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, TextField } from "@mui/material";
-import { DesktopDatePicker , LocalizationProvider} from '@mui/x-date-pickers';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import Axios from "axios";
 
@@ -17,7 +17,7 @@ class AddTodo extends Component {
       date: Date().toLocaleString('en-US'),
     });
   };
-  
+
   handleTimeChange = (e) => {
     let dueDate = new Date(e).toLocaleDateString()
     this.setState({
@@ -34,12 +34,12 @@ class AddTodo extends Component {
       currentDate: this.state.date,
       dueDate: this.state.due
     };
-  
+
     // HTTP Client to send a POST request
     Axios({
       method: "POST",
       url: "http://localhost:8080/add/item",
-      data: {jsonObject},
+      data: { jsonObject },
       headers: {
         "Content-Type": "application/json"
       }
@@ -54,7 +54,7 @@ class AddTodo extends Component {
       due: null,
     });
   };
-  
+
   render() {
     return (
       <div>
@@ -65,20 +65,20 @@ class AddTodo extends Component {
             variant="outlined"
             onChange={this.handleChange}
             value={this.state.content}
-          /> 
-           <LocalizationProvider dateAdapter={AdapterDateFns}>
-           <DesktopDatePicker
+          />
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DesktopDatePicker
               id="new-item-date"
               label="Due Date"
               value={this.state.due}
               onChange={this.handleTimeChange}
               renderInput={(params) => <TextField {...params} />}
             />
-           </LocalizationProvider>
+          </LocalizationProvider>
           <Button
             id="new-item-button"
             name='submit'
-            style={{ marginLeft: "10px",marginTop:10 }}
+            style={{ marginLeft: "10px", marginTop: 10 }}
             onClick={this.handleSubmit}
             variant="contained"
             color="primary"
